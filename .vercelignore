@@ -5,3 +5,4 @@ dist
 .vscode
 .idea
 *.log
+indigo-analytics-suite-main/
