@@ -3,7 +3,10 @@
   "buildCommand": "npm run build",
   "framework": "vite",
   "outputDirectory": "dist",
-  "functions": {
-    "maxDuration": 60
-  }
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
 }
