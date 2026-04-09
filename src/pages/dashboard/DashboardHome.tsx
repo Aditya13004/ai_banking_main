@@ -4,6 +4,7 @@ import { supabase } from "@/lib/supabase";
 import { Loader2, BrainCircuit, CheckCircle2, Building2, CreditCard, ShieldAlert, Activity, RefreshCw, FileWarning, AlertTriangle, X, Smartphone, Globe, ArrowDownLeft, ArrowUpRight, IndianRupee, Check, Briefcase, RotateCcw, Landmark } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { BANKS } from "@/components/onboarding/OnboardingWizard";
 
 const DashboardHome = () => {
   const [status, setStatus] = useState<string | null>(null);
@@ -323,13 +324,18 @@ const DashboardHome = () => {
                   ) : (
                     <div>
                       <label className="text-sm font-medium text-foreground mb-1 block">Select Bank</label>
-                      <select className="w-full bg-secondary/50 border border-border rounded-xl px-4 py-3 outline-none focus:border-primary transition-all">
-                        <option>State Bank of India</option>
-                        <option>HDFC Bank</option>
-                        <option>ICICI Bank</option>
-                        <option>Axis Bank</option>
-                        <option>Kotak Mahindra Bank</option>
-                      </select>
+                      <div className="grid grid-cols-2 gap-2 max-h-[150px] overflow-y-auto pr-1 mt-2">
+                        {BANKS.filter(b => ["sbi", "hdfc", "icici", "axis", "kotak", "idfc", "yes", "pnb", "bob"].includes(b.id)).map((bank) => (
+                          <div key={bank.id}
+                            className="flex items-center gap-2 p-2 rounded-xl border border-border bg-secondary/30 hover:bg-primary/10 cursor-pointer transition-colors"
+                            onClick={() => { /* Mock bank selection */ }}>
+                            <div className="w-6 h-6 rounded-full bg-white overflow-hidden p-0.5 shrink-0">
+                              <img src={bank.logo} alt={bank.name} className="w-full h-full object-contain" />
+                            </div>
+                            <span className="text-xs truncate">{bank.name.split(" ")[0]}</span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   )}
 

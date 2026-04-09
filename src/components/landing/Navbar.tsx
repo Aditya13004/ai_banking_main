@@ -39,7 +39,7 @@ const Navbar = () => {
           <Button
             size="sm"
             className="bg-primary hover:bg-primary/90 text-primary-foreground glow-primary transition-transform hover:scale-105 active:scale-95"
-            onClick={() => document.getElementById('onboarding')?.scrollIntoView({ behavior: 'smooth' })}
+            onClick={() => navigate("/auth")}
           >
             Get Started
           </Button>
@@ -62,7 +62,7 @@ const Navbar = () => {
             className="w-full bg-primary hover:bg-primary/90 text-primary-foreground mt-2 transition-transform hover:scale-105 active:scale-95"
             onClick={() => {
               setOpen(false);
-              document.getElementById('onboarding')?.scrollIntoView({ behavior: 'smooth' });
+              navigate("/auth");
             }}
           >
             Get Started

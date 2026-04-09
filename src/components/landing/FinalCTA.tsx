@@ -27,7 +27,7 @@ const FinalCTA = () => {
         <Button
           size="lg"
           className="bg-primary hover:bg-primary/90 text-primary-foreground glow-primary gap-2 relative transition-transform hover:scale-105 active:scale-95"
-          onClick={() => document.getElementById('onboarding')?.scrollIntoView({ behavior: 'smooth' })}
+          onClick={() => navigate("/auth")}
         >
           Get Started Now <ArrowRight size={16} />
         </Button>

@@ -15,19 +15,22 @@ const ACCOUNT_TYPES = [
   { id: "rekyc",          label: "Re-KYC / Reactivation",  desc: "Update KYC or reactivate dormant account", icon: RotateCcw, color: "text-green-500", bg: "bg-green-500/10" },
 ];
 
-const BANKS = [
-  { id: "sbi",   name: "State Bank of India",   domain: "sbi.co.in" },
-  { id: "pnb",   name: "Punjab National Bank",  domain: "pnbindia.in" },
-  { id: "bob",   name: "Bank of Baroda",        domain: "bankofbaroda.in" },
-  { id: "canara", name: "Canara Bank",          domain: "canarabank.com" },
-  { id: "union", name: "Union Bank of India",   domain: "unionbankofindia.co.in" },
-  { id: "boi",   name: "Bank of India",         domain: "bankofindia.co.in" },
-  { id: "indian", name: "Indian Bank",          domain: "indianbank.in" },
-  { id: "central", name: "Central Bank of India", domain: "centralbankofindia.co.in" },
-  { id: "hdfc",  name: "HDFC Bank",             domain: "hdfcbank.com" },
-  { id: "icici", name: "ICICI Bank",            domain: "icicibank.com" },
-  { id: "axis",  name: "Axis Bank",             domain: "axisbank.com" },
-  { id: "kotak", name: "Kotak Mahindra Bank",   domain: "kotak.com" },
+export const BANKS = [
+  { id: "sbi",      name: "State Bank of India",   domain: "sbi.co.in", logo: "/logos/sbi.svg" },
+  { id: "pnb",      name: "Punjab National Bank",  domain: "pnbindia.in", logo: "/logos/pnb.svg" },
+  { id: "bob",      name: "Bank of Baroda",        domain: "bankofbaroda.in", logo: "/logos/bob.svg" },
+  { id: "canara",   name: "Canara Bank",          domain: "canarabank.com", logo: "https://upload.wikimedia.org/wikipedia/commons/d/d6/Canara_Bank_logo.svg" },
+  { id: "union",    name: "Union Bank of India",   domain: "unionbankofindia.co.in", logo: "https://upload.wikimedia.org/wikipedia/commons/4/4b/Union_Bank_of_India_Logo.svg" },
+  { id: "boi",      name: "Bank of India",         domain: "bankofindia.co.in", logo: "https://upload.wikimedia.org/wikipedia/commons/4/40/Bank_of_India_Logo.svg" },
+  { id: "indian",   name: "Indian Bank",          domain: "indianbank.in", logo: "https://upload.wikimedia.org/wikipedia/commons/e/e6/Indian_Bank_Logo.svg" },
+  { id: "central",  name: "Central Bank of India", domain: "centralbankofindia.co.in", logo: "https://upload.wikimedia.org/wikipedia/commons/0/07/Central_Bank_of_India_logo.svg" },
+  { id: "hdfc",     name: "HDFC Bank",             domain: "hdfcbank.com", logo: "/logos/hdfc.svg" },
+  { id: "icici",    name: "ICICI Bank",            domain: "icicibank.com", logo: "/logos/icici.svg" },
+  { id: "axis",     name: "Axis Bank",             domain: "axisbank.com", logo: "/logos/axis.svg" },
+  { id: "kotak",    name: "Kotak Mahindra Bank",   domain: "kotak.com", logo: "/logos/kotak.svg" },
+  { id: "idfc",     name: "IDFC FIRST Bank",       domain: "idfcfirstbank.com", logo: "https://upload.wikimedia.org/wikipedia/commons/c/c5/IDFC_First_Bank_logo.svg" },
+  { id: "yes",      name: "Yes Bank",              domain: "yesbank.in", logo: "https://upload.wikimedia.org/wikipedia/commons/f/ff/YES_Bank_SVG_Logo.svg" },
+  { id: "indusind", name: "IndusInd Bank",         domain: "indusind.com", logo: "https://upload.wikimedia.org/wikipedia/commons/d/d4/IndusInd_Bank_SVG_Logo.svg" },
 ];
 
 // ── Proactive AI Chat Bubble ────────────────────────────────────────────────
@@ -273,7 +276,7 @@ export default function OnboardingWizard() {
                         ${formData.bank === bank.name ? 'border-primary bg-primary/5 shadow-md shadow-primary/20 scale-100' : 'border-border bg-card hover:bg-secondary/50 scale-95 hover:scale-100 opacity-80 hover:opacity-100'}`}>
                       <div className="w-12 h-12 rounded-full overflow-hidden bg-white shadow-sm flex items-center justify-center p-1.5 shrink-0">
                         <img 
-                          src={`https://logo.clearbit.com/${bank.domain}?size=100`} 
+                          src={(bank as any).logo || `https://logo.clearbit.com/${bank.domain}?size=100`} 
                           alt={bank.name} 
                           className="w-full h-full object-contain"
                           onError={(e) => {
@@ -311,7 +314,16 @@ export default function OnboardingWizard() {
               <motion.form key="step2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} onSubmit={handleFormSubmit} className="space-y-6">
                 <div className="text-center mb-4">
                   <h3 className="text-xl font-semibold mb-2">Applicant Details</h3>
-                  <p className="text-sm text-muted-foreground">KYC form for {formData.bank} — {ACCOUNT_TYPES.find(a => a.id === formData.accountType)?.label}</p>
+                  <p className="text-sm text-muted-foreground flex items-center justify-center gap-2">
+                    {BANKS.find(b => b.name === formData.bank)?.logo && (
+                      <img 
+                        src={BANKS.find(b => b.name === formData.bank)?.logo} 
+                        alt={formData.bank} 
+                        className="w-5 h-5 object-contain rounded-full bg-white p-0.5" 
+                      />
+                    )}
+                    KYC form for {formData.bank} — {ACCOUNT_TYPES.find(a => a.id === formData.accountType)?.label}
+                  </p>
                 </div>
 
                 {/* Proactive AI tip */}
